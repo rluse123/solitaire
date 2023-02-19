@@ -15,11 +15,13 @@ class DiscardPile(CardPile):
         self.main = main
 
     def add_card(self, a_card):
-        if not a_card.face_up:  # use method instead??
+
+        if not a_card.faceUp():  # use method instead??
             a_card.flip()
         self.thePile.append(a_card)  # self.add_card???
 
     def select(self):
+
         if self.is_empty():
             return
 
@@ -38,4 +40,3 @@ class DiscardPile(CardPile):
         # nobody can use it, put it back on our list
         assert top_card is not None
         self.add_card(top_card)
-

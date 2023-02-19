@@ -7,18 +7,20 @@ from tablepile import TablePile
 from tkinter import *
 from collections import deque
 
-# This version works with multicard move.
-# make method calls consistent
-# remove print statements
-# Then enhance - move multiple cards
 
+# This version works with multi-card move.
+# Then enhance:
+# When moving a card(s) from the tableau, automatically turn face-up the
+# new top card if it exists.  - Done
+# Keep track of wins and losses
+# undo move
 
 class Solitaire(Frame):
     deckPile = deque()
     discardPile = deque()
     tableau = deque()
     suitPile = deque()
-    cardPile = deque() # CardPile
+    cardPile = deque()  # CardPile
 
     deckPileX = 335
     deckPileY = 30
@@ -53,9 +55,6 @@ class Solitaire(Frame):
 
         self.init()
 
-        # print("DeckPile size is: ", len(self.deckPile.thePile))
-        # print("DiscardPile size is: ", len(self.discardPile.thePile))
-
     def restart(self):
         Solitaire.deckPile.clear()
         Solitaire.discardPile.clear()
@@ -69,8 +68,6 @@ class Solitaire(Frame):
         self.init()
 
     def init(self):
-        # print("in init")
-
         self.myCanvas.update()  # Force canvas update
         self.myCanvas.delete('all')
 
@@ -91,6 +88,7 @@ class Solitaire(Frame):
 
     # @staticmethod
     def mouse_pressed(self, event):
+
         # print("Mouse Pressed event type: ", type(event))
         # get mouse click position
         x = event.x
@@ -102,6 +100,7 @@ class Solitaire(Frame):
                 self.paint_screen()
 
     def paint_screen(self):
+
         self.myCanvas.delete('all')
         for i in range(13):
             self.allPiles[i].display()

@@ -12,6 +12,7 @@ class SuitPile(CardPile):
         self.canvas = canvas
 
     def can_take(self, a_card):
+
         if self.is_empty():
             return a_card.rank() == 0
 
