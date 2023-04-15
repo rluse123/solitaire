@@ -16,7 +16,7 @@ class DiscardPile(CardPile):
 
     def add_card(self, a_card):
 
-        if not a_card.faceUp():  # use method instead??
+        if not a_card.faceup():  # use method instead??
             a_card.flip()
         self.thePile.append(a_card)  # self.add_card???
 

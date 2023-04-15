@@ -41,7 +41,7 @@ class CardPile:
         return self.x <= tx <= self.x + Card.width and \
                self.y <= ty <= self.y + Card.height
 
-    def select(self, tx, ty):
+    def select(self):
          pass
 
     def add_card(self, a_card):
@@ -53,6 +53,6 @@ class CardPile:
         else:
             self.top().draw(self.x, self.y, self.canvas)
 
-    def canTake(self, aCard):
+    def can_take(self, a_card):
         return False
 

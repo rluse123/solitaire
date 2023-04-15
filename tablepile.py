@@ -42,7 +42,7 @@ class TablePile(CardPile):
     # break up into smaller funcs
     def get_face_up_cards(self):
         face_up_cards = []
-        while not self.is_empty() and self.top().face_up:
+        while not self.is_empty() and self.top().faceup():
             face_up_cards.append(self.pop())
 
         return face_up_cards
@@ -51,7 +51,7 @@ class TablePile(CardPile):
         if self.is_empty():
             return
         top_card = self.top()
-        if not top_card.face_up:
+        if not top_card.faceup():
             top_card.flip()
             return
 
@@ -61,7 +61,7 @@ class TablePile(CardPile):
                 sp.add_card(top_card)
                 if not self.is_empty():
                     new_top_card = self.top()
-                    if not new_top_card.face_up:
+                    if not new_top_card.faceup():
                         new_top_card.flip()
                 return
         self.add_card(top_card)
@@ -80,7 +80,7 @@ class TablePile(CardPile):
 
                     if not self.is_empty():
                         top_card = self.top()
-                        if not top_card.face_up:
+                        if not top_card.faceup():
                             top_card.flip()
                     return
 

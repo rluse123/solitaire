@@ -10,10 +10,9 @@ class Card:
     club = 3
 
     def __init__(self, sv, rv):
-
         self.s = sv
         self.r = rv
-        self.face_up = False
+        self._face_up = False
 
     def rank(self):
         return self.r
@@ -21,19 +20,19 @@ class Card:
     def suit(self):
         return self.s
 
-    def faceUp(self):
-        return self.face_up
+    def faceup(self):
+        return self._face_up
 
     def flip(self):
-        self.face_up = not self.face_up
+        self._face_up = not self._face_up
 
     def color(self):
-        if self.faceUp():
+        if self._face_up:
             if self.suit() == self.heart or self.suit() == self.diamond:
                 return "red"
             else:
                 return "black"
-        return "yellow"
+        return "blue"
 
     def draw(self, x, y, canvas):
         # function to solitaire
@@ -47,7 +46,7 @@ class Card:
         # draw body of card
         # get the color, red or black
 
-        if self.faceUp():
+        if self._face_up:
             canvas.create_text(x + 5, y + 15, text=names[self.rank()], fill=self.color())
             if self.suit() == self.heart:
                 canvas.create_line(x + 25, y + 30, x + 35, y + 20, fill=self.color())

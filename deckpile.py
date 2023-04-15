@@ -30,11 +30,11 @@ class DeckPile(CardPile):
     def select(self):
 
         if self.is_empty():  # self.empty
-            # print("\nIn deckpile, select - self is empty: ", self.is_empty())
-            # take discard pile, flip it over and make it the new deckpile
+            # print("\nIn deck pile, select - self is empty: ", self.is_empty())
+            # take discard pile, flip it over and make it the new deck pile
             while not self.main.discardPile.is_empty():
                 temp = self.main.discardPile.pop()
-                if temp.faceUp():
+                if temp.faceup():
                     temp.flip()
                 self.add_card(temp)
             return

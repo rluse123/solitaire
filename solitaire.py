@@ -9,9 +9,7 @@ from collections import deque
 
 
 # This version works with multi-card move.
-# Then enhance:
-# When moving a card(s) from the tableau, automatically turn face-up the
-# new top card if it exists.  - Done
+
 # Keep track of wins and losses
 # undo move
 
@@ -46,7 +44,8 @@ class Solitaire(Frame):
         self.restart_button = Button(self, text="Restart", command=self.restart)
         self.restart_button.pack(side=BOTTOM)
 
-        self.myCanvas = Canvas(self, width=Solitaire.frameWidth, height=Solitaire.frameHeight, background="bisque")
+        self.myCanvas = Canvas(self, width=Solitaire.frameWidth,
+                               height=Solitaire.frameHeight, background="green")
         self.myCanvas.pack(side="bottom", fill="both", expand=True)
 
         self.myCanvas.bind("<Button-1>", self.mouse_pressed)
