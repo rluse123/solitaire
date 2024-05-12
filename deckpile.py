@@ -20,7 +20,7 @@ class DeckPile(CardPile):
         for i in range(4):
             for j in range(13):
                 # use add_card??
-                self.add_card(Card(i, j))  # Card needs canvas as third parm
+                self.add_card(Card(i, j, canvas))  # Card needs canvas as third parm
 
         # shuffle the list
         # load the deque from the shuffled list

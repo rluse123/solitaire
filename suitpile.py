@@ -11,11 +11,11 @@ class SuitPile(CardPile):
         super().__init__(x, y, canvas)
         self.canvas = canvas
 
-    def can_take(self, a_card):
+    def can_take(self, card):
 
         if self.is_empty():
-            return a_card.rank() == 0
+            return card.rank() == 0
 
         top_card = self.top()
-        return a_card.suit() == top_card.suit() and \
-            a_card.rank() == 1 + top_card.rank()
+        return card.suit() == top_card.suit() and \
+            card.rank() == 1 + top_card.rank()

@@ -14,11 +14,11 @@ class DiscardPile(CardPile):
         self.canvas = canvas
         self.main = main
 
-    def add_card(self, a_card):
+    def add_card(self, card):
 
-        if not a_card.faceup():  # use method instead??
-            a_card.flip()
-        self.thePile.append(a_card)  # self.add_card???
+        if not card.faceup():  # use method instead??
+            card.flip()
+        self.thePile.append(card)  # self.add_card???
 
     def select(self):
 

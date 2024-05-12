@@ -1,16 +1,18 @@
 # need to handle the display method - Tkinter or PyGame
 
-'''
+"""
 Stack
-empty() – Returns whether the stack is empty – Time Complexity: O(1)
+is_empty() – Returns whether the stack is empty – Time Complexity: O(1)
 size() – Returns the size of the stack – Time Complexity: O(1)
 top() – Returns a reference to the topmost element of the stack – Time Complexity: O(1)
-push(a) – Inserts the element ‘a’ at the top of the stack – Time Complexity: O(1)
-pop() – Deletes the topmost element of the stack – Time Complexity: O(1)
-'''
+add_card(card) – Inserts the element ‘a’ at the top of the stack – Time Complexity: O(1)
+pop_card() – Deletes the topmost element of the stack – Time Complexity: O(1)
+"""
 
 from card import Card
 from collections import deque
+
+
 
 class CardPile:
 
@@ -24,13 +26,15 @@ class CardPile:
         return self.thePile[-1]  # Card
 
     def is_empty(self):
-        if len(self.thePile) == 0:  # length 0
+        # Checks if stack is empty.
+        # return: True if empty, False otherwise.
+        if len(self.thePile) == 0:
             return True
         else:
             return False
 
     def pop(self):
-        if self.is_empty():
+        if len(self.thePile) == 0:
             return None
         else:
             return self.thePile.pop()
@@ -39,20 +43,20 @@ class CardPile:
     # includes if for the gui to select the card
     def includes(self, tx, ty):
         return self.x <= tx <= self.x + Card.width and \
-               self.y <= ty <= self.y + Card.height
+            self.y <= ty <= self.y + Card.height
 
     def select(self):
-         pass
+        pass
 
-    def add_card(self, a_card):
-        self.thePile.append(a_card)
+    def add_card(self, card):
+        self.thePile.append(card)
 
     def display(self):
-        if self.is_empty():
+        if len(self.thePile) == 0:
             self.canvas.create_rectangle(self.x, self.y, self.x + Card.width, self.y + Card.height, outline="blue")
         else:
             self.top().draw(self.x, self.y, self.canvas)
 
-    def can_take(self, a_card):
-        return False
-
+    def can_take(self):
+        # return False
+        pass

@@ -32,12 +32,12 @@ class TablePile(CardPile):
         # don't test bottom of card
         return self.x <= tx <= (self.x + Card.width) and self.y <= ty
 
-    def can_take(self, a_card):
+    def can_take(self, card):
         # print("In TablePile can take: ", a_card.rank() + 1, a_card.suit())
         if len(self.thePile) == 0:
-            return a_card.rank() == 12
+            return card.rank() == 12
         top_card = self.top()
-        return (a_card.color() != top_card.color()) and (a_card.rank() == top_card.rank() - 1)
+        return (card.color() != top_card.color()) and (card.rank() == top_card.rank() - 1)
 
     # break up into smaller funcs
     def get_face_up_cards(self):
@@ -90,6 +90,6 @@ class TablePile(CardPile):
 
     def display(self):
         local_y = self.y
-        for aCard in self.thePile:
-            aCard.draw(self.x, local_y, self.canvas)
+        for card in self.thePile:
+            card.draw(self.x, local_y, self.canvas)
             local_y += 35
