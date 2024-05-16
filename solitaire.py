@@ -1,17 +1,28 @@
 from card import Card
-from deckpile import DeckPile
-from discardpile import DiscardPile
-from suitpile import SuitPile
-from tablepile import TablePile
+from cardpile import DeckPile
+from cardpile import DiscardPile
+from cardpile import SuitPile
+from cardpile import TablePile
 
 from tkinter import *
 from collections import deque
-
 
 # This version works with multi-card move.
 
 # Keep track of wins and losses
 # undo move
+
+
+class GameConfig:
+    FRAME_WIDTH = 450
+    FRAME_HEIGHT = 600
+    DECK_PILE_X = 335
+    DECK_PILE_Y = 30
+    DISCARD_PILE_X = 268
+    DISCARD_PILE_Y = 30
+    SUIT_PILE_Y = 30
+    TABLE_PILE_Y = Card.height + 35
+
 
 class Solitaire(Frame):
     deckPile = deque()
@@ -20,32 +31,18 @@ class Solitaire(Frame):
     suitPile = deque()
     cardPile = deque()  # CardPile
 
-    deckPileX = 335
-    deckPileY = 30
-    discardPileX = 268
-    discardPileY = 30
-    suitPileY = 30
-    tablePileY = Card.height + 35
-
-    frameWidth = 450
-    frameHeight = 600
-
-    cardPileSize = 13
-    suitPileSize = 4
-    tableauSize = 7
-
     def __init__(self):
         Frame.__init__(self)
         self.pack(expand=YES, fill=BOTH)
         self.master.title("Python Solitaire!!")
-        self.master.geometry(f"{Solitaire.frameWidth}x{Solitaire.frameHeight}")
+        self.master.geometry(f"{GameConfig.FRAME_WIDTH}x{GameConfig.FRAME_HEIGHT}")
 
         # Restart
         self.restart_button = Button(self, text="Restart", command=self.restart)
         self.restart_button.pack(side=BOTTOM)
 
-        self.myCanvas = Canvas(self, width=Solitaire.frameWidth,
-                               height=Solitaire.frameHeight, background="green")
+        self.myCanvas = Canvas(self, width=GameConfig.FRAME_WIDTH,
+                               height=GameConfig.FRAME_HEIGHT, background="green")
         self.myCanvas.pack(side="bottom", fill="both", expand=True)
 
         self.myCanvas.bind("<Button-1>", self.mouse_pressed)
@@ -70,17 +67,17 @@ class Solitaire(Frame):
         self.myCanvas.update()  # Force canvas update
         self.myCanvas.delete('all')
 
-        self.deckPile = DeckPile(Solitaire.deckPileX, Solitaire.deckPileY, self, self.myCanvas)
+        self.deckPile = DeckPile(GameConfig.DECK_PILE_X, GameConfig.DECK_PILE_Y, self, self.myCanvas)
         self.allPiles.append(self.deckPile)
-        self.discardPile = DiscardPile(Solitaire.discardPileX, Solitaire.discardPileY, self, self.myCanvas)
+        self.discardPile = DiscardPile(GameConfig.DISCARD_PILE_X, GameConfig.DISCARD_PILE_Y, self, self.myCanvas)
         self.allPiles.append(self.discardPile)
 
         for i in range(4):
-            self.suitPile.append(SuitPile(15 + (Card.width + 10) * i, Solitaire.suitPileY, self.myCanvas))
+            self.suitPile.append(SuitPile(15 + (Card.width + 10) * i, GameConfig.SUIT_PILE_Y, self.myCanvas))
             self.allPiles.append(Solitaire.suitPile[i])
 
         for i in range(7):
-            self.tableau.append(TablePile(15 + (Card.width + 5) * i, Solitaire.tablePileY, i + 1, self, self.myCanvas))
+            self.tableau.append(TablePile(15 + (Card.width + 5) * i, GameConfig.TABLE_PILE_Y, i + 1, self, self.myCanvas))
             self.allPiles.append(self.tableau[i])
 
         self.paint_screen()

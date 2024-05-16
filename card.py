@@ -1,36 +1,63 @@
+from enum import Enum
+from tkinter import font
+
+
+class Suit(Enum):
+    HEART = 0
+    SPADE = 1
+    DIAMOND = 2
+    CLUB = 3
+
+
 class Card:
     width = 50
     height = 70
 
-    heart = 0
-    spade = 1
-    diamond = 2
-    club = 3
-
-    def __init__(self, suit_value, rank_value, canvas):
-        self.suit_value = suit_value
-        self.rank_value = rank_value
-        self.face_up = False
+    def __init__(self, suit, rank, canvas):
+        self.suit = suit
+        self.rank = rank
+        self.face_up_value = False
 
     def suit(self):
-        return self.suit_value
+        return self.suit
 
     def rank(self):
-        return self.rank_value
+        return self.rank
 
-    def faceup(self):
-        return self.face_up
+    def face_up(self):
+        return self.face_up_value
 
     def flip(self):
-        self.face_up = not self.face_up
+        self.face_up_value = not self.face_up_value
 
-    def color(self):
-        if self.face_up:
-            if self.suit() == self.heart or self.suit() == self.diamond:
+    def _color(self):
+        if self.face_up_value:
+            if self.suit == Suit.HEART.value or self.suit == Suit.DIAMOND.value:
                 return "red"
             else:
                 return "black"
         return "blue"
+
+    def draw_heart(self, x, y, canvas):
+        canvas.create_polygon([x+25, y+30, x+35, y+20, x+45, y+30,
+                              x+25, y+60, x+5, y+30, x+15, y+20, x+25, y+30],
+                              outline="red", fill="red", width=2)
+    def draw_spade(self, x, y, canvas):
+        canvas.create_polygon([x+15, y+45, x+25, y+25, x+35, y+45, x+35, y+45,
+                           x+23, y+45, x+20, y+55, x+30, y+55, x+27, y+45],
+                            outline="black", fill="black", width=2)
+    def draw_diamond(self, x, y, canvas):
+        canvas.create_polygon([x+10, y+35, x+25, y+15, x+40, y+35, x+25, y+55],
+                              outline="red", fill="red", width=2)
+
+    def draw_club(self, x, y, canvas):
+        canvas.create_oval(x + 20, y + 25, x + 30, y + 35, outline="black", fill="black", width=2)
+        canvas.create_oval(x + 25, y + 35, x + 35, y + 45, outline="black", fill="black", width=2)
+        canvas.create_oval(x + 15, y + 35, x + 35, y + 45, outline="black", fill="black", width=2)
+        # Base
+        canvas.create_line(x + 23, y + 45, x + 20, y + 55, fill="black", width=2)
+        canvas.create_line(x + 20, y + 55, x + 30, y + 55, fill="black", width=2)
+        canvas.create_line(x + 30, y + 55, x + 27, y + 45, fill="black", width=2)
 
     def draw(self, x, y, canvas):
         # function to solitaire
@@ -44,39 +71,24 @@ class Card:
         # draw body of card
         # get the color, red or black
 
-        if self.face_up:
-            canvas.create_text(x + 5, y + 15, text=names[self.rank()], fill=self.color())
-            if self.suit() == self.heart:
-                canvas.create_line(x + 25, y + 30, x + 35, y + 20, fill=self.color())
-                canvas.create_line(x + 35, y + 20, x + 45, y + 30, fill=self.color())
-                canvas.create_line(x + 45, y + 30, x + 25, y + 60, fill=self.color())
-                canvas.create_line(x + 25, y + 60, x + 5, y + 30, fill=self.color())
-                canvas.create_line(x + 5, y + 30, x + 15, y + 20, fill=self.color())
-                canvas.create_line(x + 15, y + 20, x + 25, y + 30, fill=self.color())
-            elif self.suit() == self.spade:
-                canvas.create_line(x + 15, y + 45, x + 25, y + 25, fill=self.color())
-                canvas.create_line(x + 25, y + 25, x + 35, y + 45, fill=self.color())
-                canvas.create_line(x + 15, y + 45, x + 35, y + 45, fill=self.color())
-                # Base
-                canvas.create_line(x + 23, y + 45, x + 20, y + 55, fill=self.color())
-                canvas.create_line(x + 20, y + 55, x + 30, y + 55, fill=self.color())
-                canvas.create_line(x + 30, y + 55, x + 27, y + 45, fill=self.color())
-            elif self.suit() == self.diamond:
-                canvas.create_line(x + 10, y + 35, x + 25, y + 15, fill=self.color())
-                canvas.create_line(x + 25, y + 15, x + 40, y + 35, fill=self.color())
-                canvas.create_line(x + 40, y + 35, x + 25, y + 55, fill=self.color())
-                canvas.create_line(x + 25, y + 55, x + 10, y + 35, fill=self.color())
-            elif self.suit() == self.club:
-                canvas.create_oval(x + 20, y + 25, x + 30, y + 35, outline=self.color())
-                canvas.create_oval(x + 25, y + 35, x + 35, y + 45, outline=self.color())
-                canvas.create_oval(x + 15, y + 35, x + 35, y + 45, outline=self.color())
-                # Base
-                canvas.create_line(x + 23, y + 45, x + 20, y + 55, fill=self.color())
-                canvas.create_line(x + 20, y + 55, x + 30, y + 55, fill=self.color())
-                canvas.create_line(x + 30, y + 55, x + 27, y + 45, fill=self.color())
+        if self.face_up_value:
+            bold_font = font.Font(family="Helvetica", size=12, weight="bold")
+            canvas.create_text(x+5, y+15, text=names[self.rank], font=bold_font, fill=self._color())
+            if self.suit == Suit.HEART.value:
+                self.draw_heart(x, y, canvas)
+
+            elif self.suit == Suit.SPADE.value:
+                self.draw_spade(x, y, canvas)
+
+            elif self.suit == Suit.DIAMOND.value:
+                self.draw_diamond(x, y, canvas)
+
+            elif self.suit == Suit.CLUB.value:
+                self.draw_club(x, y, canvas)
+
         else:  # face down
-            canvas.create_line(x + 15, y + 5, x + 15, y + 65, fill=self.color())
-            canvas.create_line(x + 35, y + 5, x + 35, y + 65, fill=self.color())
-            canvas.create_line(x + 5, y + 20, x + 45, y + 20, fill=self.color())
-            canvas.create_line(x + 5, y + 35, x + 45, y + 35, fill=self.color())
-            canvas.create_line(x + 5, y + 50, x + 45, y + 50, fill=self.color())
+            canvas.create_line(x + 15, y + 5, x + 15, y + 65, fill=self._color())
+            canvas.create_line(x + 35, y + 5, x + 35, y + 65, fill=self._color())
+            canvas.create_line(x + 5, y + 20, x + 45, y + 20, fill=self._color())
+            canvas.create_line(x + 5, y + 35, x + 45, y + 35, fill=self._color())
+            canvas.create_line(x + 5, y + 50, x + 45, y + 50, fill=self._color())
