@@ -73,7 +73,7 @@ class Card:
 
         if self.face_up_value:
             bold_font = font.Font(family="Helvetica", size=12, weight="bold")
-            canvas.create_text(x+5, y+15, text=names[self.rank], font=bold_font, fill=self._color())
+            canvas.create_text(x+6, y+15, text=names[self.rank], font=bold_font, fill=self._color())
             if self.suit == Suit.HEART.value:
                 self.draw_heart(x, y, canvas)
 
