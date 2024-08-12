@@ -55,9 +55,8 @@ class Card:
         canvas.create_oval(x + 25, y + 35, x + 35, y + 45, outline="black", fill="black", width=2)
         canvas.create_oval(x + 15, y + 35, x + 35, y + 45, outline="black", fill="black", width=2)
         # Base
-        canvas.create_line(x + 23, y + 45, x + 20, y + 55, fill="black", width=2)
-        canvas.create_line(x + 20, y + 55, x + 30, y + 55, fill="black", width=2)
-        canvas.create_line(x + 30, y + 55, x + 27, y + 45, fill="black", width=2)
+        canvas.create_polygon(x + 23, y + 45, x + 20, y + 55, x + 20, y + 55, x + 30, y + 55,
+                                x + 30, y + 55, x + 27, y + 45, outline="black", fill="black", width=2)
 
     def draw(self, x, y, canvas):
         # function to solitaire
